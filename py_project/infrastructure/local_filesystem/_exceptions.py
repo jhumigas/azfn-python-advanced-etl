@@ -1,0 +1,2 @@
+class LocalFileSystemError(Exception):
+    pass

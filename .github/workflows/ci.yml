@@ -1,0 +1,131 @@
+name: ci
+
+on:
+  push:
+    branches:
+      - '**'
+  pull_request:
+    branches:
+      - main
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+
+  quality:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Set up Python 3.8
+      uses: actions/setup-python@v1
+      with:
+        python-version: 3.8
+
+    - name: Set up the cache
+      uses: actions/cache@v1
+      with:
+        path: .venv
+        key: cache-python-packages
+
+    - name: Set up the project
+      run: |
+        pip install -U pip
+        pip install poetry safety
+        poetry config --local
+        poetry config virtualenvs.in-project true
+        poetry --version
+        make setup
+
+    - name: Check the code quality
+      run: make check-flake8
+
+    # - name: Check if the code is correctly typed
+    #   run: make check-types
+
+    - name: Check for vulnerabilities in dependencies
+      run: make check-safety
+    
+    - name: Check for security vulnerabilities
+      run: make check-bandit
+
+  unit-tests:
+    runs-on: ubuntu-latest
+    strategy:
+      max-parallel: 4
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+
+    - name: Set up Python 3.8
+      uses: actions/setup-python@v1
+      with:
+        python-version: 3.8
+
+    - name: Set up the cache
+      uses: actions/cache@v1
+      with:
+        path: .venv
+        key: cache-python-packages
+
+    - name: Set up the project
+      run: |
+        pip install -U pip
+        pip install poetry safety
+        poetry config --local
+        poetry config virtualenvs.in-project true
+        poetry --version
+        make setup
+
+    - name: Run the test suite
+      run: make run-unit-tests
+  
+  integration-tests:
+    runs-on: ubuntu-latest
+    strategy:
+      max-parallel: 4
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+
+    - name: Set up Python 3.8
+      uses: actions/setup-python@v1
+      with:
+        python-version: 3.8
+
+    - name: Set up the cache
+      uses: actions/cache@v1
+      with:
+        path: .venv
+        key: cache-python-packages
+
+    - name: Set up the project
+      run: |
+        pip install -U pip
+        pip install poetry safety
+        poetry config --local
+        poetry config virtualenvs.in-project true
+        poetry --version
+        make setup
+    
+    - name: Start test environment
+      run: |
+        make prepare-dev
+        make start-dev
+    
+    - name: Check test environment
+      run: make check-up-azfn
+  
+    - name: Run the test suite
+      run: make run-integration-tests
+    
+    - name: Stop test environment
+      run: make stop-dev
+    

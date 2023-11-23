@@ -1,0 +1,23 @@
+# Linting configuration
+[flake8]
+max-line-length = 120
+max-complexity = 15
+exclude = README.md, .github/*, *.egg*, build/*, docs/*, .venv/*, docker/*, notebooks/*
+ignore =
+    # indent
+    E121, E122, E123, E126, E127, E128, E131
+
+    # line break before or after binary operator
+    W503, W504
+
+    # invalid escape sequence
+    W605
+
+    # don't use lambda expressions
+    E731
+
+    # comparison to None should be 'if cond is None:'
+    E711
+
+    # Whitespace before :
+    E203

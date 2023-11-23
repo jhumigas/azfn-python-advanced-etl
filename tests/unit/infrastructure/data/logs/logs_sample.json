@@ -1,0 +1,406 @@
+[
+    {
+        "executionTime": 1647337602.685043,
+        "mode": "INC",
+        "status": "given_task RUNNING",
+        "stateProcessingItems": [],
+        "jobId": "given_job_id",
+        "posts": {}
+    },
+    {
+        "executionTime": 1647337602.685043,
+        "mode": "INC",
+        "status": "azfn_data_eng_orchestrate_weather_ingestion RUNNING",
+        "stateProcessingItems": [],
+        "jobId": "1176750ace1542eeab145cdab06690f1",
+        "posts": {}
+    },
+    {
+        "executionTime": 1647337603.241112,
+        "mode": "INC",
+        "status": "azfn_data_eng_prepare_weather_ingestion RUNNING",
+        "stateProcessingItems": [],
+        "jobId": "1176750ace1542eeab145cdab06690f1",
+        "posts": {}
+    },
+    {
+        "executionTime": 1647337604.04368,
+        "mode": "INC",
+        "status": "azfn_data_eng_prepare_weather_ingestion COMPLETED",
+        "stateProcessingItems": [
+            {
+                "stepName": "azfn_data_eng_prepare_weather_ingestion",
+                "startTime": 1647337603.6644027,
+                "endTime": 1647337604.0122046,
+                "inputs": [],
+                "outputs": [],
+                "posts": {
+                    "azfn_data_eng_ingest_weather_data_from_raw_to_database": {
+                        "file_paths": []
+                    },
+                    "azfn_data_eng_ingest_processed_data_to_datalake": {
+                        "file_paths": []
+                    },
+                    "azfn_data_eng_orchestrate_weather_ingestion": {
+                        "last_processed_file_paths": [
+                            "/ews-it-temparossa/RAW/WEATHER/GG2/OUT/EWS-IT-TEMPAROSSA_WEATHER_GG2_DBC_INC_ALL_20211130-143850_RAW_20211130-143852.csv",
+                            "/ews-it-temparossa/RAW/WEATHER/ATM/OUT/EWS-IT-TEMPAROSSA_WEATHER_ATM_DBC_INC_ALL_20220314-200000_RAW_20220314-200002.csv",
+                            "/ews-it-temparossa/RAW/WEATHER/TR1/OUT/EWS-IT-TEMPAROSSA_WEATHER_TR1_FTP_FULL_ALL_20220315-090008_RAW_20220315-090015.csv"
+                        ]
+                    }
+                }
+            }
+        ],
+        "jobId": "1176750ace1542eeab145cdab06690f1",
+        "posts": {}
+    },
+    {
+        "executionTime": 1647337604.350794,
+        "mode": "INC",
+        "status": "azfn_data_eng_ingest_weather_data_from_raw_to_database RUNNING",
+        "stateProcessingItems": [
+            {
+                "stepName": "azfn_data_eng_prepare_weather_ingestion",
+                "startTime": 1647337603.6644027,
+                "endTime": 1647337604.0122046,
+                "inputs": [],
+                "outputs": [],
+                "posts": {
+                    "azfn_data_eng_ingest_weather_data_from_raw_to_database": {
+                        "file_paths": []
+                    },
+                    "azfn_data_eng_ingest_processed_data_to_datalake": {
+                        "file_paths": []
+                    },
+                    "azfn_data_eng_orchestrate_weather_ingestion": {
+                        "last_processed_file_paths": [
+                            "/ews-it-temparossa/RAW/WEATHER/GG2/OUT/EWS-IT-TEMPAROSSA_WEATHER_GG2_DBC_INC_ALL_20211130-143850_RAW_20211130-143852.csv",
+                            "/ews-it-temparossa/RAW/WEATHER/ATM/OUT/EWS-IT-TEMPAROSSA_WEATHER_ATM_DBC_INC_ALL_20220314-200000_RAW_20220314-200002.csv",
+                            "/ews-it-temparossa/RAW/WEATHER/TR1/OUT/EWS-IT-TEMPAROSSA_WEATHER_TR1_FTP_FULL_ALL_20220315-090008_RAW_20220315-090015.csv"
+                        ]
+                    }
+                }
+            }
+        ],
+        "jobId": "1176750ace1542eeab145cdab06690f1",
+        "posts": {}
+    },
+    {
+        "executionTime": 1647337605.035203,
+        "mode": "INC",
+        "status": "azfn_data_eng_ingest_weather_data_from_raw_to_database COMPLETED",
+        "stateProcessingItems": [
+            {
+                "stepName": "azfn_data_eng_prepare_weather_ingestion",
+                "startTime": 1647337603.6644027,
+                "endTime": 1647337604.0122046,
+                "inputs": [],
+                "outputs": [],
+                "posts": {
+                    "azfn_data_eng_ingest_weather_data_from_raw_to_database": {
+                        "file_paths": []
+                    },
+                    "azfn_data_eng_ingest_processed_data_to_datalake": {
+                        "file_paths": []
+                    },
+                    "azfn_data_eng_orchestrate_weather_ingestion": {
+                        "last_processed_file_paths": [
+                            "/ews-it-temparossa/RAW/WEATHER/GG2/OUT/EWS-IT-TEMPAROSSA_WEATHER_GG2_DBC_INC_ALL_20211130-143850_RAW_20211130-143852.csv",
+                            "/ews-it-temparossa/RAW/WEATHER/ATM/OUT/EWS-IT-TEMPAROSSA_WEATHER_ATM_DBC_INC_ALL_20220314-200000_RAW_20220314-200002.csv",
+                            "/ews-it-temparossa/RAW/WEATHER/TR1/OUT/EWS-IT-TEMPAROSSA_WEATHER_TR1_FTP_FULL_ALL_20220315-090008_RAW_20220315-090015.csv"
+                        ]
+                    }
+                }
+            },
+            {
+                "stepName": "azfn_data_eng_ingest_weather_data_from_raw_to_database",
+                "startTime": 1647337604.768327,
+                "endTime": 1647337605.004305,
+                "inputs": [],
+                "outputs": [
+                    "degas/schema_metrics/weather_metrics"
+                ],
+                "posts": {}
+            }
+        ],
+        "jobId": "1176750ace1542eeab145cdab06690f1",
+        "posts": {}
+    },
+    {
+        "executionTime": 1647337605.374831,
+        "mode": "INC",
+        "status": "azfn_data_eng_ingest_processed_data_to_datalake RUNNING",
+        "stateProcessingItems": [
+            {
+                "stepName": "azfn_data_eng_prepare_weather_ingestion",
+                "startTime": 1647337603.6644027,
+                "endTime": 1647337604.0122046,
+                "inputs": [],
+                "outputs": [],
+                "posts": {
+                    "azfn_data_eng_ingest_weather_data_from_raw_to_database": {
+                        "file_paths": []
+                    },
+                    "azfn_data_eng_ingest_processed_data_to_datalake": {
+                        "file_paths": []
+                    },
+                    "azfn_data_eng_orchestrate_weather_ingestion": {
+                        "last_processed_file_paths": [
+                            "/ews-it-temparossa/RAW/WEATHER/GG2/OUT/EWS-IT-TEMPAROSSA_WEATHER_GG2_DBC_INC_ALL_20211130-143850_RAW_20211130-143852.csv",
+                            "/ews-it-temparossa/RAW/WEATHER/ATM/OUT/EWS-IT-TEMPAROSSA_WEATHER_ATM_DBC_INC_ALL_20220314-200000_RAW_20220314-200002.csv",
+                            "/ews-it-temparossa/RAW/WEATHER/TR1/OUT/EWS-IT-TEMPAROSSA_WEATHER_TR1_FTP_FULL_ALL_20220315-090008_RAW_20220315-090015.csv"
+                        ]
+                    }
+                }
+            },
+            {
+                "stepName": "azfn_data_eng_ingest_weather_data_from_raw_to_database",
+                "startTime": 1647337604.768327,
+                "endTime": 1647337605.004305,
+                "inputs": [],
+                "outputs": [
+                    "degas/schema_metrics/weather_metrics"
+                ],
+                "posts": {}
+            }
+        ],
+        "jobId": "1176750ace1542eeab145cdab06690f1",
+        "posts": {}
+    },
+    {
+        "executionTime": 1647337606.611837,
+        "mode": "INC",
+        "status": "azfn_data_eng_ingest_processed_data_to_datalake COMPLETED",
+        "stateProcessingItems": [
+            {
+                "stepName": "azfn_data_eng_prepare_weather_ingestion",
+                "startTime": 1647337603.6644027,
+                "endTime": 1647337604.0122046,
+                "inputs": [],
+                "outputs": [],
+                "posts": {
+                    "azfn_data_eng_ingest_weather_data_from_raw_to_database": {
+                        "file_paths": []
+                    },
+                    "azfn_data_eng_ingest_processed_data_to_datalake": {
+                        "file_paths": []
+                    },
+                    "azfn_data_eng_orchestrate_weather_ingestion": {
+                        "last_processed_file_paths": [
+                            "/ews-it-temparossa/RAW/WEATHER/GG2/OUT/EWS-IT-TEMPAROSSA_WEATHER_GG2_DBC_INC_ALL_20211130-143850_RAW_20211130-143852.csv",
+                            "/ews-it-temparossa/RAW/WEATHER/ATM/OUT/EWS-IT-TEMPAROSSA_WEATHER_ATM_DBC_INC_ALL_20220314-200000_RAW_20220314-200002.csv",
+                            "/ews-it-temparossa/RAW/WEATHER/TR1/OUT/EWS-IT-TEMPAROSSA_WEATHER_TR1_FTP_FULL_ALL_20220315-090008_RAW_20220315-090015.csv"
+                        ]
+                    }
+                }
+            },
+            {
+                "stepName": "azfn_data_eng_ingest_weather_data_from_raw_to_database",
+                "startTime": 1647337604.768327,
+                "endTime": 1647337605.004305,
+                "inputs": [],
+                "outputs": [
+                    "degas/schema_metrics/weather_metrics"
+                ],
+                "posts": {}
+            },
+            {
+                "stepName": "azfn_data_eng_ingest_processed_data_to_datalake",
+                "startTime": 1647337605.734359,
+                "endTime": 1647337606.5786743,
+                "inputs": [],
+                "outputs": [],
+                "posts": {
+                    "azfn_data_eng_ingest_data_from_apps_to_database": {
+                        "file_paths": []
+                    }
+                }
+            }
+        ],
+        "jobId": "1176750ace1542eeab145cdab06690f1",
+        "posts": {}
+    },
+    {
+        "executionTime": 1647337607.026744,
+        "mode": "INC",
+        "status": "azfn_data_eng_ingest_data_from_apps_to_database RUNNING",
+        "stateProcessingItems": [
+            {
+                "stepName": "azfn_data_eng_prepare_weather_ingestion",
+                "startTime": 1647337603.6644027,
+                "endTime": 1647337604.0122046,
+                "inputs": [],
+                "outputs": [],
+                "posts": {
+                    "azfn_data_eng_ingest_weather_data_from_raw_to_database": {
+                        "file_paths": []
+                    },
+                    "azfn_data_eng_ingest_processed_data_to_datalake": {
+                        "file_paths": []
+                    },
+                    "azfn_data_eng_orchestrate_weather_ingestion": {
+                        "last_processed_file_paths": [
+                            "/ews-it-temparossa/RAW/WEATHER/GG2/OUT/EWS-IT-TEMPAROSSA_WEATHER_GG2_DBC_INC_ALL_20211130-143850_RAW_20211130-143852.csv",
+                            "/ews-it-temparossa/RAW/WEATHER/ATM/OUT/EWS-IT-TEMPAROSSA_WEATHER_ATM_DBC_INC_ALL_20220314-200000_RAW_20220314-200002.csv",
+                            "/ews-it-temparossa/RAW/WEATHER/TR1/OUT/EWS-IT-TEMPAROSSA_WEATHER_TR1_FTP_FULL_ALL_20220315-090008_RAW_20220315-090015.csv"
+                        ]
+                    }
+                }
+            },
+            {
+                "stepName": "azfn_data_eng_ingest_weather_data_from_raw_to_database",
+                "startTime": 1647337604.768327,
+                "endTime": 1647337605.004305,
+                "inputs": [],
+                "outputs": [
+                    "degas/schema_metrics/weather_metrics"
+                ],
+                "posts": {}
+            },
+            {
+                "stepName": "azfn_data_eng_ingest_processed_data_to_datalake",
+                "startTime": 1647337605.734359,
+                "endTime": 1647337606.5786743,
+                "inputs": [],
+                "outputs": [],
+                "posts": {
+                    "azfn_data_eng_ingest_data_from_apps_to_database": {
+                        "file_paths": []
+                    }
+                }
+            }
+        ],
+        "jobId": "1176750ace1542eeab145cdab06690f1",
+        "posts": {}
+    },
+    {
+        "executionTime": 1647337607.493216,
+        "mode": "INC",
+        "status": "azfn_data_eng_ingest_data_from_apps_to_database COMPLETED",
+        "stateProcessingItems": [
+            {
+                "stepName": "azfn_data_eng_prepare_weather_ingestion",
+                "startTime": 1647337603.6644027,
+                "endTime": 1647337604.0122046,
+                "inputs": [],
+                "outputs": [],
+                "posts": {
+                    "azfn_data_eng_ingest_weather_data_from_raw_to_database": {
+                        "file_paths": []
+                    },
+                    "azfn_data_eng_ingest_processed_data_to_datalake": {
+                        "file_paths": []
+                    },
+                    "azfn_data_eng_orchestrate_weather_ingestion": {
+                        "last_processed_file_paths": [
+                            "/ews-it-temparossa/RAW/WEATHER/GG2/OUT/EWS-IT-TEMPAROSSA_WEATHER_GG2_DBC_INC_ALL_20211130-143850_RAW_20211130-143852.csv",
+                            "/ews-it-temparossa/RAW/WEATHER/ATM/OUT/EWS-IT-TEMPAROSSA_WEATHER_ATM_DBC_INC_ALL_20220314-200000_RAW_20220314-200002.csv",
+                            "/ews-it-temparossa/RAW/WEATHER/TR1/OUT/EWS-IT-TEMPAROSSA_WEATHER_TR1_FTP_FULL_ALL_20220315-090008_RAW_20220315-090015.csv"
+                        ]
+                    }
+                }
+            },
+            {
+                "stepName": "azfn_data_eng_ingest_weather_data_from_raw_to_database",
+                "startTime": 1647337604.768327,
+                "endTime": 1647337605.004305,
+                "inputs": [],
+                "outputs": [
+                    "degas/schema_metrics/weather_metrics"
+                ],
+                "posts": {}
+            },
+            {
+                "stepName": "azfn_data_eng_ingest_processed_data_to_datalake",
+                "startTime": 1647337605.734359,
+                "endTime": 1647337606.5786743,
+                "inputs": [],
+                "outputs": [],
+                "posts": {
+                    "azfn_data_eng_ingest_data_from_apps_to_database": {
+                        "file_paths": []
+                    }
+                }
+            },
+            {
+                "stepName": "azfn_data_eng_ingest_data_from_apps_to_database",
+                "startTime": 1647337607.4601057,
+                "endTime": 1647337607.4604225,
+                "inputs": [],
+                "outputs": [],
+                "posts": {}
+            }
+        ],
+        "jobId": "1176750ace1542eeab145cdab06690f1",
+        "posts": {}
+    },
+    {
+        "executionTime": 1647337607.858518,
+        "mode": "INC",
+        "status": "azfn_data_eng_orchestrate_weather_ingestion COMPLETED",
+        "stateProcessingItems": [
+            {
+                "stepName": "azfn_data_eng_prepare_weather_ingestion",
+                "startTime": 1647337603.6644027,
+                "endTime": 1647337604.0122046,
+                "inputs": [],
+                "outputs": [],
+                "posts": {
+                    "azfn_data_eng_ingest_weather_data_from_raw_to_database": {
+                        "file_paths": []
+                    },
+                    "azfn_data_eng_ingest_processed_data_to_datalake": {
+                        "file_paths": []
+                    },
+                    "azfn_data_eng_orchestrate_weather_ingestion": {
+                        "last_processed_file_paths": [
+                            "/ews-it-temparossa/RAW/WEATHER/GG2/OUT/EWS-IT-TEMPAROSSA_WEATHER_GG2_DBC_INC_ALL_20211130-143850_RAW_20211130-143852.csv",
+                            "/ews-it-temparossa/RAW/WEATHER/ATM/OUT/EWS-IT-TEMPAROSSA_WEATHER_ATM_DBC_INC_ALL_20220314-200000_RAW_20220314-200002.csv",
+                            "/ews-it-temparossa/RAW/WEATHER/TR1/OUT/EWS-IT-TEMPAROSSA_WEATHER_TR1_FTP_FULL_ALL_20220315-090008_RAW_20220315-090015.csv"
+                        ]
+                    }
+                }
+            },
+            {
+                "stepName": "azfn_data_eng_ingest_weather_data_from_raw_to_database",
+                "startTime": 1647337604.768327,
+                "endTime": 1647337605.004305,
+                "inputs": [],
+                "outputs": [
+                    "degas/schema_metrics/weather_metrics"
+                ],
+                "posts": {}
+            },
+            {
+                "stepName": "azfn_data_eng_ingest_processed_data_to_datalake",
+                "startTime": 1647337605.734359,
+                "endTime": 1647337606.5786743,
+                "inputs": [],
+                "outputs": [],
+                "posts": {
+                    "azfn_data_eng_ingest_data_from_apps_to_database": {
+                        "file_paths": []
+                    }
+                }
+            },
+            {
+                "stepName": "azfn_data_eng_ingest_data_from_apps_to_database",
+                "startTime": 1647337607.4601057,
+                "endTime": 1647337607.4604225,
+                "inputs": [],
+                "outputs": [],
+                "posts": {}
+            }
+        ],
+        "jobId": "1176750ace1542eeab145cdab06690f1",
+        "posts": {
+            "azfn_data_eng_orchestrate_weather_ingestion": {
+                "last_processed_file_paths": [
+                    "/ews-it-temparossa/RAW/WEATHER/GG2/OUT/EWS-IT-TEMPAROSSA_WEATHER_GG2_DBC_INC_ALL_20211130-143850_RAW_20211130-143852.csv",
+                    "/ews-it-temparossa/RAW/WEATHER/ATM/OUT/EWS-IT-TEMPAROSSA_WEATHER_ATM_DBC_INC_ALL_20220314-200000_RAW_20220314-200002.csv",
+                    "/ews-it-temparossa/RAW/WEATHER/TR1/OUT/EWS-IT-TEMPAROSSA_WEATHER_TR1_FTP_FULL_ALL_20220315-090008_RAW_20220315-090015.csv"
+                ]
+            }
+        }
+    }
+]
