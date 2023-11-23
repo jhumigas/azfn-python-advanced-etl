@@ -3,8 +3,8 @@ import unittest
 
 import pandas as pd
 import testing.postgresql
-from sqlalchemy import create_engine
-from sqlalchemy.engine import Engine
+from sqlalchemy import create_engine, text
+from sqlalchemy.engine import Engine, Connection
 
 from py_project.config.database_config import (
     WRITE_MODE_APPEND,
@@ -21,7 +21,7 @@ class TestPostgresDatabase(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
         cls.postgresql = testing.postgresql.Postgresql(port=7654)
-        connection_string = cls.postgresql.url()
+        connection_string: str = cls.postgresql.url()
         cls.engine: Engine = create_engine(connection_string)
 
     @classmethod
@@ -33,12 +33,14 @@ class TestPostgresDatabase(unittest.TestCase):
             return None
 
     def setUp(self) -> None:
-        self.schema = "schema_name"
-        self.engine.execute(f"CREATE SCHEMA {self.schema};")
+        self.schema: str = "schema_name"
+        self.connection: Connection = self.engine.connect().execution_options(isolation_level="AUTOCOMMIT")
+        self.connection.execute(text(f"CREATE SCHEMA {self.schema};"))
 
     def tearDown(self) -> None:
-        self.engine.execute("DROP SCHEMA public CASCADE; CREATE SCHEMA public;")
-        self.engine.execute(f"DROP SCHEMA {self.schema} CASCADE;")
+        self.connection.execute(text("DROP SCHEMA public CASCADE; CREATE SCHEMA public;"))
+        self.connection.execute(text(f"DROP SCHEMA {self.schema} CASCADE;"))
+        self.connection.close()
 
     def test_has_table(self):
         # Given
@@ -71,7 +73,7 @@ class TestPostgresDatabase(unittest.TestCase):
         )
 
         # Then
-        df_in_db: pd.DataFrame = pd.read_sql(f"SELECT * FROM {given_schema}.{given_table_name}", con=self.engine)
+        df_in_db: pd.DataFrame = pd.read_sql(text(f"SELECT * FROM {given_schema}.{given_table_name}"), con=self.engine)
         pd.testing.assert_frame_equal(expected_df, df_in_db)
 
     def test_write_dataframe_with_write_mode_upsert(self):
@@ -80,9 +82,11 @@ class TestPostgresDatabase(unittest.TestCase):
         given_date_col: str = "datetime"
         given_table_name: str = "table_name"
         given_schema: str = self.schema
-        self.engine.execute(
-            f"CREATE TABLE {given_schema}.{given_table_name}\
+        self.connection.execute(
+            text(
+                f"CREATE TABLE {given_schema}.{given_table_name}\
                 ({given_pk_col} INTEGER PRIMARY KEY, {given_date_col} TIMESTAMP)"
+            )
         )
         row1: pd.Series = pd.Series({given_pk_col: 1, given_date_col: datetime.datetime(2020, 1, 1)})
         given_init_df: pd.DataFrame = pd.DataFrame([row1])
@@ -101,7 +105,7 @@ class TestPostgresDatabase(unittest.TestCase):
         )
 
         # Then
-        df_in_db: pd.DataFrame = pd.read_sql(f"SELECT * FROM {given_schema}.{given_table_name}", con=self.engine)
+        df_in_db: pd.DataFrame = pd.read_sql(text(f"SELECT * FROM {given_schema}.{given_table_name}"), con=self.engine)
         pd.testing.assert_frame_equal(expected_df, df_in_db)
 
     def test_write_dataframe_with_write_mode_truncate_then_append(self):
@@ -110,9 +114,11 @@ class TestPostgresDatabase(unittest.TestCase):
         given_date_col: str = "datetime"
         given_table_name: str = "table_name"
         given_schema: str = self.schema
-        self.engine.execute(
-            f"CREATE TABLE {given_schema}.{given_table_name}\
+        self.connection.execute(
+            text(
+                f"CREATE TABLE {given_schema}.{given_table_name}\
                 ({given_pk_col} INTEGER PRIMARY KEY, {given_date_col} TIMESTAMP)"
+            )
         )
         row1: pd.Series = pd.Series({given_pk_col: 1, given_date_col: datetime.datetime(2020, 1, 1)})
         given_init_df: pd.DataFrame = pd.DataFrame([row1])
@@ -120,7 +126,7 @@ class TestPostgresDatabase(unittest.TestCase):
             name=given_table_name, schema=given_schema, con=self.engine, if_exists=WRITE_MODE_APPEND, index=False
         )
         row2: pd.Series = pd.Series({given_pk_col: 2, given_date_col: datetime.datetime(2020, 1, 2)})
-        row3: pd.Series = pd.Series({given_pk_col: 1, given_date_col: datetime.datetime(2020, 1, 10)})
+        row3: pd.Series = pd.Series({given_pk_col: 3, given_date_col: datetime.datetime(2020, 1, 10)})
         given_df: pd.DataFrame = pd.DataFrame([row3, row2])
         given_postgres_database: PostgresDatabase = PostgresDatabase(engine=self.engine)
         expected_df: pd.DataFrame = pd.DataFrame([row3, row2])
@@ -134,7 +140,7 @@ class TestPostgresDatabase(unittest.TestCase):
         )
 
         # Then
-        df_in_db: pd.DataFrame = pd.read_sql(f"SELECT * FROM {given_schema}.{given_table_name}", con=self.engine)
+        df_in_db: pd.DataFrame = pd.read_sql(text(f"SELECT * FROM {given_schema}.{given_table_name}"), con=self.engine)
         pd.testing.assert_frame_equal(expected_df, df_in_db)
 
     def test_read_dataframe(self):

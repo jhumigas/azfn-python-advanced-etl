@@ -4,7 +4,7 @@ from typing import Optional
 import pandas as pd
 from psycopg2 import sql
 from psycopg2.sql import Composed
-from sqlalchemy import MetaData, text
+from sqlalchemy import MetaData, inspect, text
 from sqlalchemy.dialects.postgresql import insert
 from sqlalchemy.engine import Engine
 
@@ -29,25 +29,27 @@ def convert_composable_to_string(seq: Composed) -> str:
 class PostgresDatabase(Database):
     def __init__(self, engine: Engine):
         self.engine = engine
+        self.inspect = inspect(engine)
 
     def has_table(self, table_name: str, schema_name: str) -> bool:
-        return self.engine.has_table(table_name=table_name, schema=schema_name)
+        return self.inspect.has_table(table_name=table_name, schema=schema_name)
 
     def upsert_maker(self, schema):
-
-        meta = MetaData(bind=self.engine, schema=schema)
-        meta.reflect()
+        metadata_obj = MetaData(schema=schema)
+        metadata_obj.reflect(bind=self.engine)
 
         def _upsert(table, conn, keys, data_iter):
             upsert_args = {
                 "index_elements": [
-                    column.name for column in meta.tables[f"{meta.schema}.{table.name}"].columns if column.primary_key
+                    column.name
+                    for column in metadata_obj.tables[f"{metadata_obj.schema}.{table.name}"].columns
+                    if column.primary_key
                 ]
             }
             for data in data_iter:
                 data = {k: data[i] for i, k in enumerate(keys)}
                 upsert_args["set_"] = data
-                insert_stmt = insert(meta.tables[f"{meta.schema}.{table.name}"]).values(**data)
+                insert_stmt = insert(metadata_obj.tables[f"{metadata_obj.schema}.{table.name}"]).values(**data)
                 upsert_stmt = insert_stmt.on_conflict_do_update(**upsert_args)
                 conn.execute(upsert_stmt)
 
@@ -79,8 +81,10 @@ class PostgresDatabase(Database):
                 **kwargs,
             )
         elif write_mode == WRITE_MODE_TRUNCATE_THEN_APPEND:
-            truncate_statement = text(f"TRUNCATE TABLE {schema}.{table_name};")
-            self.engine.execute(truncate_statement)
+            with self.engine.connect() as connection:
+                truncate_statement = text(f"TRUNCATE TABLE {schema}.{table_name};")
+                connection.execute(truncate_statement)
+                connection.commit()
             return input_df.to_sql(
                 name=table_name,
                 con=self.engine,
